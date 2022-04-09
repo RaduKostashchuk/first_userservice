@@ -41,6 +41,10 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
+    public Role findByName(String name) {
+        return roleRepository.findByName(name);
+    }
+
     public boolean existsByName(String name) {
         return roleRepository.existsByName(name);
     }

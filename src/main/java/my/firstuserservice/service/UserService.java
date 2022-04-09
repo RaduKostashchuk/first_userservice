@@ -24,9 +24,11 @@ public class UserService {
         if (userRepository.existsByLogin(user.getLogin())) {
             throw new IllegalArgumentException("Такой пользователь уже существует");
         }
-        if (!roleService.existsByName(user.getRole().getName())) {
+        Role role = roleService.findByName(user.getRole().getName());
+        if (role == null) {
             throw new NoSuchElementException("Такой роли не существует");
         }
+        user.setRole(role);
         String password = user.getPassword();
         user.setPassword(encoder.encode(password));
         return userRepository.save(user);
